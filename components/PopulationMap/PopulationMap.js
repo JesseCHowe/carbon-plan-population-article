@@ -16,10 +16,10 @@ const sx = {
   },
   countryName: {
     fontSize: [3],
-    displa: 'block',
+    display: 'block',
   },
   countryPop: {
-    displa: 'block',
+    display: 'block',
     fontSize: [1],
   },
 }
