@@ -14,6 +14,16 @@ const sx = {
     lineHeight: 1,
     transition: '1s',
   },
+  key: {
+    background: 'background',
+    padding: '0 10px',
+    position: 'absolute',
+    fontFamily: 'heading',
+    letterSpacing: 'smallcaps',
+    textAnchor: 'middle',
+    fontSize: [0],
+    lineHeight: 1,
+  },
   countryName: {
     fontSize: [3],
     display: 'block',
@@ -48,6 +58,7 @@ const MapChart = ({ step }) => {
   const height = 600
   const width = 600
   const svgRef = useRef()
+  const scaleRef = useRef()
 
   useEffect(() => {
     if (chart) {
@@ -57,8 +68,9 @@ const MapChart = ({ step }) => {
 
   useEffect(() => {
     const svg = d3.select(svgRef.current)
+    const scale = d3.select(scaleRef.current)
     svg.selectAll('*').remove()
-
+    scale.selectAll('*').remove()
     const chartContainer = svg
       .attr('viewBox', `0 0 ${width} ${height}`)
       .attr('preserveAspectRatio', 'xMinYMin slice')
@@ -67,6 +79,42 @@ const MapChart = ({ step }) => {
       .append('svg')
       .attr('width', width)
       .attr('height', height)
+
+    const scaleContainer = scale
+      .attr('viewBox', `0 0 ${width} ${100}`)
+      .attr('preserveAspectRatio', 'xMinYMin slice')
+      .attr('width', '100%')
+      .attr('height', 'auto')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 100)
+
+    const scale_values = [2000000000, 1000000000, 500000000]
+    scaleContainer
+      .selectAll('pop-indicators')
+      .data(scale_values)
+      .enter()
+      .append('circle')
+      .attr('cx', 50)
+      .attr('cy', (d) => 100 - flanneryScale(d))
+      .attr('r', (d) => flanneryScale(d))
+      .style('fill', 'none')
+      .style('stroke', '#aaa')
+      .style('stroke-width', 1)
+
+    scaleContainer
+      .selectAll('pop-indicators-line')
+      .data(scale_values)
+      .enter()
+      .append('line')
+      .attr('x1', (d) => 50)
+      .attr('x2', (d) => 120)
+      .attr('y1', (d) => 100 - flanneryScale(d) * 2)
+      .attr('y2', (d) => 100 - flanneryScale(d) * 2)
+      .style('fill', 'none')
+      .style('stroke', '#aaa')
+      .style('stroke-width', 1)
+      .style('stroke-dasharray', '2,2')
 
     const projection = d3.geoNaturalEarth1()
     const path = d3.geoPath().projection(projection)
@@ -174,11 +222,54 @@ const MapChart = ({ step }) => {
         width: '100%',
         maxWidth: '900px',
         display: 'block',
-        position: 'relative',
+        position: 'static',
       }}
     >
-      <Box sx={{ ...sx.line, fill: 'yellow' }}>
+      <Box>
         <svg ref={svgRef} width={width} height={height}></svg>
+      </Box>
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '10px',
+          width: '100%',
+        }}
+      >
+        {' '}
+        <Box sx={{ position: 'relative' }}>
+          <svg ref={scaleRef} width={width} height={100}></svg>
+          <Box
+            as='span'
+            sx={{
+              ...sx.key,
+              bottom: '84%',
+              left: '18%',
+            }}
+          >
+            2 billion people
+          </Box>
+          <Box
+            as='span'
+            sx={{
+              ...sx.key,
+              bottom: '58%',
+              left: '18%',
+            }}
+          >
+            1 billion
+          </Box>
+          <Box
+            as='span'
+            sx={{
+              ...sx.key,
+              bottom: '35%',
+              left: '18%',
+            }}
+          >
+            500 million
+          </Box>
+        </Box>
       </Box>
       <Box as='span' sx={{ ...sx.label, bottom: '58%' }}>
         Tropic of Cancer
@@ -186,7 +277,7 @@ const MapChart = ({ step }) => {
       <Box as='span' sx={{ ...sx.label, top: '47%' }}>
         Equator
       </Box>
-      <Box as='span' sx={{ ...sx.label, top: '57%' }}>
+      <Box as='span' sx={{ ...sx.label, top: '55.5%' }}>
         Tropic of Capricorn
       </Box>
       <Box

@@ -15,7 +15,7 @@ const sx = {
     position: 'sticky',
     display: 'flex',
     alignItems: 'center',
-    height: '100vh',
+    height: 'calc(100vh - 50px)',
     top: '50px',
     zIndex: '-1',
   },
