@@ -39,10 +39,10 @@ const minPopulation = populationExtent[0]
 const maxPopulation = populationExtent[1]
 
 const flanneryScale = (d) => {
-  const factor = 1.4 // Adjust this value as needed
+  const factor = 1.4
   const range = maxPopulation - minPopulation
-  const minSize = 0.5 // Minimum bubble size
-  const maxSize = 50 // Maximum bubble size
+  const minSize = 0.5
+  const maxSize = 50
 
   const scaledSize =
     minSize +
