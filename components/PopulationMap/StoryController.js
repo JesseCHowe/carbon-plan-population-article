@@ -19,7 +19,7 @@ const ControlStory = (theme, chart, step) => {
       d.region === 'Africa' && d.subregion !== 'Northern Africa' ? '100%' : '0%'
     )
   }
-  if (step === 4 || step === 5) {
+  if (step === 4) {
     bubbles.style('opacity', (d) =>
       d.name === 'India' || d.name === 'Pakistan' ? '100%' : '0%'
     )

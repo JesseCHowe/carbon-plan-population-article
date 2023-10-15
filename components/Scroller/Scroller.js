@@ -76,7 +76,7 @@ const ScrollamaDemo = () => {
             construction.
           </Box>
         </Step>
-        <Step data={5}>
+        <Step data={4}>
           <Box sx={{ ...sx.step, height: '50vh', opacity: '0%' }} />
         </Step>
       </Scrollama>

@@ -195,7 +195,7 @@ const MapChart = ({ step }) => {
           ...sx.label,
           top: '50%',
           left: '70%',
-          opacity: step >= 4 ? '100%' : '0%',
+          opacity: step === 4 ? '100%' : '0%',
         }}
       >
         <Box sx={{ ...sx.countryName, color: 'orange' }}>India</Box>
@@ -207,7 +207,7 @@ const MapChart = ({ step }) => {
           ...sx.label,
           bottom: '65%',
           left: '49%',
-          opacity: step >= 4 ? '100%' : '0%',
+          opacity: step === 4 ? '100%' : '0%',
         }}
       >
         <Box sx={{ ...sx.countryName, color: 'purple' }}>Pakistan</Box>
